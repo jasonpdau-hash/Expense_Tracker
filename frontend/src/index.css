@@ -1,0 +1,184 @@
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Main container */
+/* - Helps to render the background across the entire webpage.  */
+.main-container {
+  min-height: 100vh;
+  background: linear-gradient( rgb(201, 216, 243) 0%, #eeeeee 100%);
+  padding: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Asserts maximum and minimum widths of elements. */
+.main-wrapper {
+  max-width: 1200px;
+  min-width: 300px;
+  margin: 0 auto;
+}
+
+/* Header container */
+.header-container {
+  color: white;
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.header-title {
+  font-size: 4rem;
+  font-weight: 1800;
+  color: #101010;
+}
+
+
+
+/* expenditure-container */
+.expense-container {
+  margin-bottom: 5rem;
+}
+
+/* Auto-margin dynamically adjusts margins around the width to ensure element is centered. */
+.expense-summary {
+  text-align: center;
+  background: white;
+  width: 300px;
+  margin: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 8px; 
+}
+
+
+
+/* input container */
+/* Flex column helps to display input fields smoothly. */
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+
+  background: white;
+  border-radius: 8px; 
+  margin-bottom: 5rem;
+}
+
+/* Form control */
+.form-control {
+  margin-bottom: 0.5rem;
+}
+
+/* Labels appear above the input field and not to the left of it. */
+label {
+  display: block;
+}
+
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin: 4px 0;
+  border-radius: 4px; 
+}
+
+/* Adds extra decorative boarders when a field is selected. */
+input:focus, select:focus {
+  border-color: lightgreen;
+}
+
+.add-button {
+  background: green;
+  color: white;
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+  border-radius: 4px;
+}
+
+/* Changing cursor into a pointer for additional responsiveness. */
+.add-button:hover  {
+  background: darkgreen;
+  cursor: pointer;
+}
+
+
+
+/* logbook container */
+.logbook-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0 auto;
+
+  background: white;
+  border-radius: 8px; 
+  padding-bottom: 0.5rem;
+}
+
+/* Flex logbook records into columns. */
+.expenditure-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  margin: 0 auto;
+  background: #eeeeee;
+  border-radius: 8px;
+}
+
+/* Flex space between to automatically space out elements in each record - specifics below. */
+.expenditure-item {
+  list-style: none;
+  background: #dddddd;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  word-wrap: break-word;
+  button:hover {
+    background: gray;
+    cursor: pointer;
+  }
+  button {
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    min-height: 32px;
+  }
+}
+
+.expenditure-title, .expenditure-date, .expenditure-category {
+  width: 125px;
+}
+/* Descriptions "expected" to store and render more text, so will be wider. */
+.expenditure-description {
+  width: 400px;
+}
+.expenditure-amount {
+  text-align: right;
+  width: 125px;
+  padding-right: 10px;
+}
+
+/* Section handling */
+.section-heading {
+  background-color: rgb(175, 196, 236);
+  border-radius: 8px 8px 0 0;
+  padding: 1rem;
+}
+
+.section-content {
+  border-radius: 0 0 8px 8px;
+  padding: 1rem;
+}
