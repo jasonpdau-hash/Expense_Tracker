@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Router, Link, Navigate, Route } from 'react-router-dom';
 import Expense from './expense';
+import Login from './login';
 
 function NoMatch() {
   return (
@@ -13,7 +14,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Expense />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/expense" element={<Expense />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
     </BrowserRouter>

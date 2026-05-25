@@ -1,0 +1,80 @@
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Main container */
+/* - Helps to render the background across the entire webpage.  */
+.main-container {
+  min-height: 100vh;
+  background: linear-gradient( rgb(201, 216, 243) 0%, #eeeeee 100%);
+  padding: 8rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Asserts maximum and minimum widths of elements. */
+.main-wrapper {
+  max-width: 1200px;
+  min-width: 300px;
+  margin: 0 auto;
+}
+
+
+/* login container */
+/* Flex column helps to display input fields smoothly. */
+.login-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  max-width: 500px;
+  margin: 0 auto;
+
+  background: white;
+  border-radius: 8px;
+  padding: 2.5rem;
+}
+
+/* Form control */
+.form-control {
+  margin-bottom: 1rem;
+}
+
+/* Labels appear above the input field and not to the left of it. */
+label {
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 4px; 
+}
+
+/* Adds extra decorative boarders when a field is selected. */
+input:focus {
+  border-color: lightgreen;
+}
+
+.login-button {
+  background: green;
+  color: white;
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 4px;
+}
+
+/* Changing cursor into a pointer for additional responsiveness. */
+.login-button:hover  {
+  background: darkgreen;
+  cursor: pointer;
+}

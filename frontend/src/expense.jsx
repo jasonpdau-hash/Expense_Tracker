@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import './index.css'
+import './expense.css'
 
 // API Requests will be sent to this url
 const API_URL_KEY = 'http://127.0.0.1:8000/expenditure'
