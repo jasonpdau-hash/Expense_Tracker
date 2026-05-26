@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from 'react'
-import './expense.css'
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './expense.css';
 
 // API Requests will be sent to this url
 const API_URL_KEY = 'http://127.0.0.1:8000/expenditure'
@@ -9,6 +10,8 @@ export default function expense() {
   const [inputs, setInputs] = useState({}); // Stores form input as an object. This will be submitted to avoid re-renders.
   const [expense, setExpense] = useState('0.00'); // Stores the total amount in expenditure - updated by calculateExpenses().
   const [expenditureItem, setExpenditureItem] = useState([]); // Stores an array of "items", each item has a title, amt, etc etc.
+  const [email, setEmail] = useState(localStorage.getItem('email'));
+
 
   // Store reference to input fields so we dont trigger a re-render when we update values+.
   const inputTitleRef = useRef(null);
@@ -17,10 +20,13 @@ export default function expense() {
   const inputDateRef = useRef(null);
   const inputDescriptionRef = useRef(null);
 
+  const navigate = useNavigate();
+
   // Fetch expenditure records from the database and calculates amt on initial render.
   useEffect(() => {
      fetchExpenditure();
      calculateExpenses();
+     setEmail(localStorage.getItem('email'))
   }, []);
 
   // When an expenditure item is updated, recalculate expenses.
@@ -58,6 +64,7 @@ export default function expense() {
           },
           body: JSON.stringify({
             id: new Date(Date.now()).toISOString(),
+            email_id: localStorage.getItem('email'),
             title: inputs.title,
             amount: inputs.amount,
             category: inputs.category,
@@ -141,6 +148,13 @@ export default function expense() {
     setExpense(amt)
   }
 
+  const userLogout = () => {
+    if (confirm("[User] Logout of my expense tracker?")) {
+      localStorage.removeItem('email');
+      setEmail('');
+      navigate('/login', { replace: true })
+    }
+  }
 
 
   return (
@@ -149,10 +163,17 @@ export default function expense() {
       <div className="main-wrapper">
         <div className="header-container">
           <h1 className="header-title">Expense Tracker</h1>
+          <br/>
+          <div className="login-tracker">
+            <span>You are logged in as {email}!</span>
+            <button className="logout-button"
+              onClick={userLogout}>Logout
+            </button>
+          </div>
+          <br/>
         </div>
 
         <div className="content-container">
-
           {/* Total expenses & some other stats */}
           <div className="expense-container">
             <div className="expense-summary">

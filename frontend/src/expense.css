@@ -29,9 +29,12 @@ body {
 
 /* Header container */
 .header-container {
-  color: white;
+  background: white;
   text-align: center;
+  width: 600px;
+  margin: auto;
   margin-bottom: 5rem;
+  border-radius: 8px;
 }
 
 .header-title {
@@ -40,7 +43,25 @@ body {
   color: #101010;
 }
 
-
+.login-tracker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  max-width: 450px;
+  margin: auto;
+  
+  button {
+    width: 100px;
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+  button:hover {
+    background: lightgray;
+    cursor: pointer;
+  }
+}
 
 /* expenditure-container */
 .expense-container {

@@ -31,7 +31,7 @@ export default function Login() {
         if (response.ok) {
           const data = await response.json();
           console.log("[User] Successful login:", data);
-          sessionStorage.setItem('email', data.email);
+          localStorage.setItem('email', credentials.email);
           navigate('/user');
         } else {
           alert("[User] Failed login. Please check your credientials.")
@@ -44,7 +44,7 @@ export default function Login() {
 
 
   return (
-    <div className='main-container'>
+  <div className='main-container'>
     <div className='main-wrapper'>
 
       <div className='login-container'>

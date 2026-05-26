@@ -4,7 +4,7 @@ import Login from './login';
 
 // Route to user's page
 const UserRoute = ({ children }) => {
-  const user = sessionStorage.getItem('email');
+  const user = localStorage.getItem('email');
   if (!user) {
     return <Navigate to="/login" replace />
   } else {
@@ -14,7 +14,7 @@ const UserRoute = ({ children }) => {
 
 // Route to login page
 const LoginRoute = ({ children }) => {
-  const user = sessionStorage.getItem('email');
+  const user = localStorage.getItem('email');
   if (user) {
     return <Navigate to="/user" replace />
   } else {
