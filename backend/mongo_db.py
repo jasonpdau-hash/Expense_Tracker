@@ -44,7 +44,7 @@ def db_build_connection():
   return client
 
 
-# Database name to connect to. 
+# Database name to connect to, and create / find collections.
 client = db_build_connection()
 database = client[db_name]
 

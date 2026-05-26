@@ -1,9 +1,10 @@
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
-from mongo_db import users_collection, expenses_collection, actions_collection
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
+from mongo_db import users_collection, expenses_collection, actions_collection 
+
 
 
 import bcrypt
@@ -67,11 +68,10 @@ def add_user(data: user_data):
 add_user(user_data(email="admin@test.com", password="admin", role="admin"))
 add_user(user_data(email="user1@test.com", password="user1", role="user"))
 add_user(user_data(email="user2@test.com", password="user2", role="user"))
-add_user(user_data(email="user3@test.com", password="user3", role="user"))
+
 
 
 # === Endpoints ===
-
 # --- Login / Users ---
 class LoginRequest(BaseModel):
   email: str
@@ -101,7 +101,6 @@ async def user_login(form_data: LoginRequest):
   }
 
 # --- Expenses ---
-
 # - Get Function
 # Returns an array of records (objects) located in the Database 
 @app.get("/expenditure")
@@ -133,7 +132,7 @@ async def db_delete_expense(expenditure_id: str):
 
 
 # --- Action log ---
-# Functions or endpoints that add an entry to the database.
+# Functions or endpoints that add an entry to the actions log.
 class action_log(BaseModel):
   email: str
   action: str
@@ -146,3 +145,17 @@ def generic_action(log: action_log):
       "time": datetime.now()
     }
   )
+
+def expense_action(log: action_log, expense: str):
+  actions_collection.insert_one(
+    {
+      "user": log.email,
+      "action": log.action,
+      "time": datetime.now(),
+      "description": expense
+    }
+  )
+
+@app.get("/actions")
+async def db_get_actions():
+  return actions_collection.find({}, {"_id": 0}).to_list()

@@ -1,0 +1,38 @@
+.action-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  margin: 0 auto;
+  background: #eeeeee;
+  border-radius: 8px;
+}
+
+/* Flex space between to automatically space out elements in each record - specifics below. */
+.action-item {
+  list-style: none;
+  background: #dddddd;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  word-wrap: break-word;
+}
+
+.action-event {
+  width: 150px;
+}
+
+.action-user {
+  width: 200px;
+}
+
+.action-time {
+  width: 300px;
+}
+
+/* Descriptions "expected" to store and render more text, so will be wider. */
+.action-description {
+  width: 400px;
+}

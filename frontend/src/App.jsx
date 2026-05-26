@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Router, Link, Navigate, Route } from 'react-router-dom';
 import Expense from './expense';
 import Login from './login';
+import Action from './action';
 
 // Route to user's page
 const UserRoute = ({ children }) => {
@@ -37,6 +38,7 @@ export default function App() {
         <Route path="/" element={<UserRoute><Expense /></UserRoute>} />
         <Route path="/login" element={<LoginRoute><Login /></LoginRoute>} />
         <Route path="/user" element={<UserRoute><Expense /></UserRoute>} />
+        <Route path="/action" element={<UserRoute><Action /></UserRoute>} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
     </BrowserRouter>
