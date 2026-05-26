@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
 
+const API_URL_KEY = 'http://127.0.0.1:8000/login';
+
 export default function Login() {
   const [credentials, setCredentials] = useState({}); // Stores credientials as an object
   const navigate = useNavigate();
@@ -12,6 +14,34 @@ export default function Login() {
     setCredentials(values => ({...values, [name]: value}))
   };
 
+  const userLogin = async (inp) => {
+    inp.preventDefault();
+    if (credentials.email.trim() && credentials.password.trim()) {
+      try {
+        const response = await fetch (API_URL_KEY, {
+          method: 'POST',
+          headers: {
+            'Content-Type': "application/json",
+          },
+          body: JSON.stringify({
+            email: credentials.email,
+            password: credentials.password
+          }),
+        });
+        if (response.ok) {
+          const data = await response.json();
+          console.log("[User] Successful login:", data);
+          sessionStorage.setItem('email', data.email);
+          navigate('/user');
+        } else {
+          alert("[User] Failed login. Please check your credientials.")
+        }
+      } catch (error) {
+        alert("[User] Login error.", error)
+      }
+    }
+  }
+
 
   return (
     <div className='main-container'>
@@ -19,7 +49,7 @@ export default function Login() {
 
       <div className='login-container'>
       <h2>Login to Expense Tracker</h2>
-        <form>
+        <form onSubmit={userLogin}>
           <div className="form-control">
             <label for="email">Email Address</label>
             <input

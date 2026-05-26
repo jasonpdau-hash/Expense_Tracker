@@ -2,6 +2,26 @@ import { BrowserRouter, Routes, Router, Link, Navigate, Route } from 'react-rout
 import Expense from './expense';
 import Login from './login';
 
+// Route to user's page
+const UserRoute = ({ children }) => {
+  const user = sessionStorage.getItem('email');
+  if (!user) {
+    return <Navigate to="/login" replace />
+  } else {
+    return children;
+  }
+}
+
+// Route to login page
+const LoginRoute = ({ children }) => {
+  const user = sessionStorage.getItem('email');
+  if (user) {
+    return <Navigate to="/user" replace />
+  } else {
+    return children;
+  }
+}
+
 function NoMatch() {
   return (
     <div>
@@ -14,8 +34,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/expense" element={<Expense />} />
+        <Route path="/" element={<UserRoute><Expense /></UserRoute>} />
+        <Route path="/login" element={<LoginRoute><Login /></LoginRoute>} />
+        <Route path="/user" element={<UserRoute><Expense /></UserRoute>} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
     </BrowserRouter>
