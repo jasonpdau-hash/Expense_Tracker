@@ -12,5 +12,18 @@ An expense tracker application built off the FARM stack (fast api, react and mon
 - Backend: FastAPI
 - Database: MongoDB
 
+## Demonstration Accounts
+| Email            | Password    | Role  |
+| ---------------- | ----------- | ----- |
+| admin@test.com   | admin       | admin |
+| user1@test.com   | user1       | user  |
+| user2@test.com   | user2       | user  |
+
+## Database details
+The application uses 3 mongo db collections.
+- users - registered accounts and roles.
+- expenses - record of expenses with title, amount, category, date, description and user's email.
+- actions - a log of major actions in the application such as login, logout, and expense modifications.
+
 ## Workload
 This application was developed indivdually by Jason Dau.
