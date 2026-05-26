@@ -8,31 +8,55 @@ password = "root"
 host = "localhost"
 port = 27017
 auth_source = "admin"
-db_name = "mongo_expenditure"
-collection_name = "expenditure"
+db_name = "mongo_expenses_app"
+collection_name = "expenses"
 
-uri = f"mongodb://{username}:{password}@{host}:{port}/?authSource={auth_source}"
+users_collection_name = "users"
+expenses_collection_name = "expenses"
+actions_collection_name = "actions"
 
-# Attempt to establish a connection to mongo_db
-client = None
-try:
-  client = MongoClient(uri)
-  client.admin.command("ping")
-  print("[DB] Successful connection to Mongo DB.")
-except ConnectionFailure as e:
-  print(f"[DB] Failed to connect to Mongo DB: {e}")
-except Exception as e:
-  print(f"[DB] Connection to Mongo DB resulted in exception: {e}")
+
+
+# Returns a collection from the given database (if exists). Otherwise, creates and returns a new collection
+def db_get_collection(db, collection_name):
+  if collection_name in db.list_collection_names():
+    print(f"[DB] Found existing collection: {collection_name}")
+    return db[collection_name]
+  else:
+    print(f"[DB] Created new collection: {collection_name}")
+    return db.create_collection(collection_name)
+
+
+# Builds a connection to mongo db
+def db_build_connection():
+  uri = f"mongodb://{username}:{password}@{host}:{port}/?authSource={auth_source}"
+  client = None
+  try:
+    client = MongoClient(uri)
+    client.admin.command("ping")
+    print("[DB] Successful connection to Mongo DB")
+  except ConnectionFailure as outp:
+    print(f"[DB] Failed to connect to Mongo DB: {outp}")
+  except Exception as outp:
+    print(f"[DB] Mongo DB Exception error: {outp}")
+
+    # db = client[db_name]
+
+    # return (
+    #   client,
+    #   db_get_collection(db, users_collection_name),
+    #   db_get_collection(db, expenses_collection_name),
+    #   db_get_collection(db, actions_collection_name),
+    # )
+  return client
+
 
 # Database name to connect to. 
-db = client[db_name]
+client = db_build_connection()
+database = client[db_name]
 
-# Assume the database and collection does not exist yet. If one exists, use the existing database
-# Else, create a new database and collection
-collection = None
-if collection_name in db.list_collection_names():
-  collection = db[collection_name]
-  print("[DB] Found existing collection.")
-else:
-  collection = db.create_collection(collection_name)
-  print("[DB] Created new collection.")
+collection = db_get_collection(database, collection_name)
+
+users_collection = db_get_collection(database, users_collection_name)
+expenses_collection = db_get_collection(database, expenses_collection_name)
+actions_collection = db_get_collection(database, actions_collection_name)
