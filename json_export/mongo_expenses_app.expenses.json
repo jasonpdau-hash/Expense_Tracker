@@ -1,0 +1,57 @@
+[{
+  "_id": {
+    "$oid": "6a16e86bea5a3dff2a5d2f7c"
+  },
+  "id": "2026-05-27T12:49:47.673Z",
+  "email_id": "user1@test.com",
+  "title": "Rent",
+  "amount": "800.00",
+  "category": "Travel",
+  "date": "2026-05-12"
+},
+{
+  "_id": {
+    "$oid": "6a16e886ea5a3dff2a5d2f7e"
+  },
+  "id": "2026-05-27T12:50:14.761Z",
+  "email_id": "user1@test.com",
+  "title": "Clothes",
+  "amount": "80.00",
+  "category": "Personal",
+  "date": "2026-05-17",
+  "description": "Shirt and pants"
+},
+{
+  "_id": {
+    "$oid": "6a16e89eea5a3dff2a5d2f80"
+  },
+  "id": "2026-05-27T12:50:38.429Z",
+  "email_id": "user1@test.com",
+  "title": "Transport topup",
+  "amount": "20.00",
+  "category": "Transport",
+  "date": "2026-05-20"
+},
+{
+  "_id": {
+    "$oid": "6a16e9b3ea5a3dff2a5d2f8c"
+  },
+  "id": "2026-05-27T12:55:15.121Z",
+  "email_id": "user1@test.com",
+  "title": "Education",
+  "amount": "1000.00",
+  "category": "Education",
+  "date": "2026-05-27"
+},
+{
+  "_id": {
+    "$oid": "6a16ead3ea5a3dff2a5d2f99"
+  },
+  "id": "2026-05-27T13:00:03.508Z",
+  "email_id": "user1@test.com",
+  "title": "Food",
+  "amount": "25.00",
+  "category": "Groceries",
+  "date": "2026-05-17",
+  "description": "Food today"
+}]

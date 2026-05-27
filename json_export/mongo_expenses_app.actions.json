@@ -1,0 +1,228 @@
+[{
+  "_id": {
+    "$oid": "6a16e86bea5a3dff2a5d2f7d"
+  },
+  "user": "user1@test.com",
+  "action": "ADD_EXPENSE",
+  "time": {
+    "$date": "2026-05-27T22:49:47.677Z"
+  },
+  "description": "Rent"
+},
+{
+  "_id": {
+    "$oid": "6a16e886ea5a3dff2a5d2f7f"
+  },
+  "user": "user1@test.com",
+  "action": "ADD_EXPENSE",
+  "time": {
+    "$date": "2026-05-27T22:50:14.764Z"
+  },
+  "description": "Clothes"
+},
+{
+  "_id": {
+    "$oid": "6a16e89eea5a3dff2a5d2f81"
+  },
+  "user": "user1@test.com",
+  "action": "ADD_EXPENSE",
+  "time": {
+    "$date": "2026-05-27T22:50:38.440Z"
+  },
+  "description": "Transport topup"
+},
+{
+  "_id": {
+    "$oid": "6a16e8a6ea5a3dff2a5d2f82"
+  },
+  "user": "user1@test.com",
+  "action": "USER_LOGOUT",
+  "time": {
+    "$date": "2026-05-27T22:50:46.072Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a16e8adea5a3dff2a5d2f83"
+  },
+  "user": "user2@test.com",
+  "action": "USER_LOGIN",
+  "time": {
+    "$date": "2026-05-27T22:50:53.524Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a16e8c8ea5a3dff2a5d2f85"
+  },
+  "user": "user2@test.com",
+  "action": "ADD_EXPENSE",
+  "time": {
+    "$date": "2026-05-27T22:51:20.009Z"
+  },
+  "description": "Woolies"
+},
+{
+  "_id": {
+    "$oid": "6a16e8cfea5a3dff2a5d2f86"
+  },
+  "user": "user2@test.com",
+  "action": "USER_LOGOUT",
+  "time": {
+    "$date": "2026-05-27T22:51:27.841Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a16e972ea5a3dff2a5d2f89"
+  },
+  "user": "user1@test.com",
+  "action": "USER_LOGIN",
+  "time": {
+    "$date": "2026-05-27T22:54:10.193Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a16e989ea5a3dff2a5d2f8a"
+  },
+  "user": "user1@test.com",
+  "action": "USER_LOGOUT",
+  "time": {
+    "$date": "2026-05-27T22:54:33.109Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a16e99dea5a3dff2a5d2f8b"
+  },
+  "user": "user1@test.com",
+  "action": "USER_LOGIN",
+  "time": {
+    "$date": "2026-05-27T22:54:53.646Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a16e9b3ea5a3dff2a5d2f8d"
+  },
+  "user": "user1@test.com",
+  "action": "ADD_EXPENSE",
+  "time": {
+    "$date": "2026-05-27T22:55:15.125Z"
+  },
+  "description": "Education"
+},
+{
+  "_id": {
+    "$oid": "6a16e9bdea5a3dff2a5d2f8e"
+  },
+  "user": "user1@test.com",
+  "action": "USER_LOGOUT",
+  "time": {
+    "$date": "2026-05-27T22:55:25.154Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a16e9c4ea5a3dff2a5d2f8f"
+  },
+  "user": "user2@test.com",
+  "action": "USER_LOGIN",
+  "time": {
+    "$date": "2026-05-27T22:55:32.941Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a16e9cfea5a3dff2a5d2f90"
+  },
+  "user": "user2@test.com",
+  "action": "DELETE_EXPENSE",
+  "time": {
+    "$date": "2026-05-27T22:55:43.013Z"
+  },
+  "description": "Woolies"
+},
+{
+  "_id": {
+    "$oid": "6a16eab9ea5a3dff2a5d2f98"
+  },
+  "user": "user1@test.com",
+  "action": "USER_LOGIN",
+  "time": {
+    "$date": "2026-05-27T22:59:37.082Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a16ead3ea5a3dff2a5d2f9a"
+  },
+  "user": "user1@test.com",
+  "action": "ADD_EXPENSE",
+  "time": {
+    "$date": "2026-05-27T23:00:03.517Z"
+  },
+  "description": "Food"
+},
+{
+  "_id": {
+    "$oid": "6a16eadeea5a3dff2a5d2f9b"
+  },
+  "user": "user1@test.com",
+  "action": "USER_LOGOUT",
+  "time": {
+    "$date": "2026-05-27T23:00:14.907Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a16eaebea5a3dff2a5d2f9c"
+  },
+  "user": "user2@test.com",
+  "action": "USER_LOGIN",
+  "time": {
+    "$date": "2026-05-27T23:00:27.339Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a16eaf3ea5a3dff2a5d2f9d"
+  },
+  "user": "user2@test.com",
+  "action": "DELETE_EXPENSE",
+  "time": {
+    "$date": "2026-05-27T23:00:35.475Z"
+  },
+  "description": "Woolies"
+},
+{
+  "_id": {
+    "$oid": "6a16eafbea5a3dff2a5d2f9e"
+  },
+  "user": "user2@test.com",
+  "action": "USER_LOGOUT",
+  "time": {
+    "$date": "2026-05-27T23:00:43.065Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a16eb05ea5a3dff2a5d2f9f"
+  },
+  "user": "admin@test.com",
+  "action": "USER_LOGIN",
+  "time": {
+    "$date": "2026-05-27T23:00:53.433Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a16eb0dea5a3dff2a5d2fa0"
+  },
+  "user": "admin@test.com",
+  "action": "USER_LOGOUT",
+  "time": {
+    "$date": "2026-05-27T23:01:01.888Z"
+  }
+}]
