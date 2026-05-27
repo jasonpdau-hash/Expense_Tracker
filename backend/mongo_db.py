@@ -15,6 +15,7 @@ port=int(os.getenv("db_port"))
 auth_source=os.getenv("db_auth_source")
 db_name=os.getenv("db_name")
 
+# Defines the collection names that will be used for our app.
 users_collection_name=os.getenv("db_users_collection_name")
 expenses_collection_name=os.getenv("db_expenses_collection_name")
 actions_collection_name=os.getenv("db_actions_collection_name")
@@ -52,6 +53,7 @@ def db_build_connection():
 client = db_build_connection()
 database = client[db_name]
 
+# Our database collections, we will import this in mongo_app.
 users_collection = db_get_collection(database, users_collection_name)
 expenses_collection = db_get_collection(database, expenses_collection_name)
 actions_collection = db_get_collection(database, actions_collection_name)
