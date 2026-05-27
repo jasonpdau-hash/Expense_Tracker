@@ -24,11 +24,7 @@
   width: 150px;
 }
 
-.action-user {
-  width: 200px;
-}
-
-.action-time {
+.action-user, .action-time {
   width: 300px;
 }
 
