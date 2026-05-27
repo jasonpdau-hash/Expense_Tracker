@@ -2,16 +2,20 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './expense.css';
 
-// API Requests will be sent to this url
-const API_URL_KEY = 'http://127.0.0.1:8000/expenditure'
+// API Requests will be sent to this base url
+const API_URL_BASE = 'http://127.0.0.1:8000'
 
 
 export default function expense() {
   const [inputs, setInputs] = useState({}); // Stores form input as an object. This will be submitted to avoid re-renders.
   const [expense, setExpense] = useState('0.00'); // Stores the total amount in expenditure - updated by calculateExpenses().
   const [expenditureItem, setExpenditureItem] = useState([]); // Stores an array of "items", each item has a title, amt, etc etc.
-  const [email, setEmail] = useState(localStorage.getItem('email'));
-
+  const [credentials, setCredentials] = useState({
+    email: localStorage.getItem('email'),
+    access_token: localStorage.getItem('access_token'),
+    access_role: localStorage.getItem('access_role')
+  });
+  // Store credentials as an object. We set the initial values to what is stored on local storage.
 
   // Store reference to input fields so we dont trigger a re-render when we update values+.
   const inputTitleRef = useRef(null);
@@ -20,31 +24,42 @@ export default function expense() {
   const inputDateRef = useRef(null);
   const inputDescriptionRef = useRef(null);
 
+  // Use navigate hook
   const navigate = useNavigate();
 
-  // Fetch expenditure records from the database and calculates amt on initial render.
+  // If we have a token, we sync the state with whatever is in local storage and fetch the user's expense items.
   useEffect(() => {
-     fetchExpenditure();
-     calculateExpenses();
-     setEmail(localStorage.getItem('email'))
-  }, []);
+    if (credentials.access_token) {
+      setCredentials({
+        email: localStorage.getItem('email'),
+        access_token: localStorage.getItem('access_token'),
+        access_role: localStorage.getItem('access_role')
+      })
+      fetchExpenditure();
+      calculateExpenses();
+    }
+  }, [credentials.access_token]);
 
   // When an expenditure item is updated, recalculate expenses.
   useEffect(() => {
-     calculateExpenses();
-  }, [expenditureItem]);
+    calculateExpenses();
+  }, [expenditureItem, credentials.access_token]);
 
   // Handles and stores input from form data. Automatically associates input with a name (id) and value (key) pairing. 
-  const handleChange = (e) => {
-    const name = e.target.id;
-    const value = e.target.value;
+  const handleChange = (inp) => {
+    const name = inp.target.id;
+    const value = inp.target.value;
     setInputs(values => ({...values, [name]: value}))
   };
 
   // Fetch expenses from the database, 
   const fetchExpenditure = async () => {
     try {
-      const response = await fetch(API_URL_KEY);
+      const response = await fetch(API_URL_BASE + '/expenditure', {
+        headers: {
+          'Authorization': `Bearer ${credentials.access_token}`
+        }
+      });
       const data = await response.json();
       setExpenditureItem(data);
     } catch (error) {
@@ -57,10 +72,12 @@ export default function expense() {
     // Only submit form if the form passes basic validation.
     if (validateForm()) {
       try {
-        const response = await fetch(API_URL_KEY, {
+        const response = await fetch(API_URL_BASE + '/expenditure', {
           method: "POST",
           headers: {
-            'Content-Type' : 'application/json'
+            'Content-Type' : 'application/json',
+            'Authorization': `Bearer ${credentials.access_token}`
+            // Token for authentication at endpoint.
           },
           body: JSON.stringify({
             id: new Date(Date.now()).toISOString(),
@@ -123,8 +140,12 @@ export default function expense() {
     if (window.confirm("[Delete] Delete this expense item?")) {
       if (expenseToDelete !== undefined) {
         try {
-          const response = await fetch(`${API_URL_KEY}/${id}`, {
-            method: 'DELETE'
+          const response = await fetch(`${API_URL_BASE}/expenditure/${id}`, {
+            method: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${credentials.access_token}`
+            // Token for authentication at endpoint.
+            }
           });
           if (response.ok) {
             fetchExpenditure();
@@ -148,14 +169,39 @@ export default function expense() {
     setExpense(amt)
   }
 
-  const userLogout = () => {
-    if (confirm("[User] Logout of my expense tracker?")) {
+  // Handle user logout.
+  const userLogout = async () => {
+    if (confirm("[User] Logout of expense tracker?")) {
+
+    // Clear local storage and reset the state of the credentials.
       localStorage.removeItem('email');
-      setEmail('');
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('access_role');
+      setCredentials({
+        email: localStorage.getItem(''),
+        access_token: localStorage.getItem(''),
+        access_role: localStorage.getItem('')
+      })
+      // Navigate back to the login page
       navigate('/login', { replace: true })
+
+
+      // Send logout event to the action log. We can place this here since we dont actually need to depend on the "logout action" being received by the backend 
+      try {
+        const response = await fetch(API_URL_BASE + '/logout', {
+          method: "POST",
+          headers: {
+            'Content-Type' : 'application/json'
+          },
+          body: JSON.stringify({
+            email: credentials.email
+          }),
+        });
+      } catch (error) {
+        alert("[Logout] Record error. ", error);
+      }
     }
   }
-
 
   return (
     <div className="main-container">
@@ -165,7 +211,7 @@ export default function expense() {
           <h1 className="header-title">Expense Tracker</h1>
           <br/>
           <div className="login-tracker">
-            <span>You are logged in as {email}!</span>
+            <span>You are logged in as {credentials.email}!</span>
             <button className="logout-button"
               onClick={userLogout}>Logout
             </button>

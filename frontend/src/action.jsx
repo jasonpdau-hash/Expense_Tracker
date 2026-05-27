@@ -2,37 +2,40 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './action.css';
 
-// API Requests will be sent to this url
-const API_URL_KEY = 'http://127.0.0.1:8000/actions'
+// API Requests will be sent to this base url
+const API_URL_BASE = 'http://127.0.0.1:8000'
 
 
-export default function expense() {
-  const [actionLog, setActionLog] = useState([]); // Stores an array of "items", each item has a title, amt, etc etc.
-  const [email, setEmail] = useState(localStorage.getItem('email'));
+export default function action() {
+  const [actionLog, setActionLog] = useState([]); // Stores an array of "events", each item has a email, action, time and optional description.
+  const [credentials, setCredentials] = useState({
+    email: localStorage.getItem('email'),
+    access_token: localStorage.getItem('access_token'),
+    access_role: localStorage.getItem('access_role')
+  });
+  // Store credentials as an object. We set the initial values to what is stored on local storage.
 
-
-  // Store reference to input fields so we dont trigger a re-render when we update values+.
-  const inputTitleRef = useRef(null);
-  const inputAmountRef = useRef(null);
-  const inputCategoryRef = useRef(null);
-  const inputDateRef = useRef(null);
-  const inputDescriptionRef = useRef(null);
-
+  // Use navigate hook
   const navigate = useNavigate();
 
-  // Fetch expenditure records from the database and calculates amt on initial render.
+  
+  // If we have a token and the valid access role, we sync the state with whatever is in local storage and fetch events for our action log.
   useEffect(() => {
-     setEmail(localStorage.getItem('email'))
-  }, []);
+    if (credentials.access_token && credentials.access_role == "admin") {
+      setCredentials({
+        email: localStorage.getItem('email'),
+        access_token: localStorage.getItem('access_token'),
+        access_role: localStorage.getItem('access_role')
+      })
+      fetchActionLog();
+    }
+  }, [credentials.access_token]);
 
-    useEffect(() => {
-     fetchActionLog();
-  }, []);
 
-  // Fetch actions from the database, 
+  // Fetch actions from the events collection in the database.
   const fetchActionLog = async () => {
     try {
-      const response = await fetch(API_URL_KEY);
+      const response = await fetch(API_URL_BASE + '/actions');
       const data = await response.json();
       setActionLog(data);
     } catch (error) {
@@ -40,11 +43,37 @@ export default function expense() {
     }
   }
 
-  const userLogout = () => {
+
+  // Handle user logout.
+  const userLogout = async () => {
     if (confirm("[User] Logout of the expense log tracker?")) {
+
+    // Clear local storage and reset the state of the credentials.
       localStorage.removeItem('email');
-      setEmail('');
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('access_role');
+      setCredentials({
+        email: localStorage.getItem(''),
+        access_token: localStorage.getItem(''),
+        access_role: localStorage.getItem('')
+      })
+      // Navigate back to the login page
       navigate('/login', { replace: true })
+
+      // Send logout event to the action log. We can place this here since we dont actually need to depend on the "logout action" being received by the backend 
+      try {
+        const response = await fetch(API_URL_BASE + '/logout', {
+          method: "POST",
+          headers: {
+            'Content-Type' : 'application/json'
+          },
+          body: JSON.stringify({
+            email: credentials.email
+          }),
+        });
+      } catch (error) {
+        alert("[Logout] Logout error. ", error);
+      }
     }
   }
 
@@ -57,7 +86,7 @@ export default function expense() {
           <h1 className="header-title">Expense Tracker</h1>
           <br/>
           <div className="login-tracker">
-            <span>You are logged in as {email}!</span>
+            <span>You are logged in as {credentials.email}!</span>
             <button className="logout-button"
               onClick={userLogout}>Logout
             </button>
@@ -73,7 +102,7 @@ export default function expense() {
             </div>
             <div className="section-content">
               <ul className="action-list">
-                {/* Map out all entries in expenditureItem as its own record in the logbook */}
+                {/* We render all event actions in a similar fashion to our expenditure items */}
                 {actionLog.map((action) => (
                   <li key={action.id} className="action-item">
                     <span className="action-user">{action.user}</span>
