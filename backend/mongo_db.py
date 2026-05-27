@@ -1,19 +1,23 @@
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 # Default database configurations
 # Should be modified depending on user's system.
-username = "root"
-password = "root"
-host = "localhost"
-port = 27017
-auth_source = "admin"
-db_name = "mongo_expenses_app"
-collection_name = "expenses"
+username=os.getenv("db_username")
+password=os.getenv("db_password")
+host=os.getenv("db_host")
+port=int(os.getenv("db_port"))
+auth_source=os.getenv("db_auth_source")
+db_name=os.getenv("db_name")
 
-users_collection_name = "users"
-expenses_collection_name = "expenses"
-actions_collection_name = "actions"
+users_collection_name=os.getenv("db_users_collection_name")
+expenses_collection_name=os.getenv("db_expenses_collection_name")
+actions_collection_name=os.getenv("db_actions_collection_name")
 
 
 
