@@ -66,16 +66,36 @@ db_actions_collection_name=actions
 
 app_jwt_secret=fromfastapiimportFastAPIHTTPExceptionstatusDepends
 ```
-4. Change directory to frontend and run `npm run dev` to start the frontend
+4. Change directory to frontend and run `npm run dev` to start the frontend.
 
 5. Change directory to backend and run `uvicorn mongo_app:app` to start the backend.
-6. 
-7. 
-8. 
 
-```
+6. Open `http://localhost:5173` in your browser.
 
-```
+### Troubleshooting
+Testing has shown that running npm run dev in the frontend may result in a permission error.
+To get around this, we will need to create a new vite@latest template and replace the existing files in that template with the source code in this repository.
+
+- Run npm create vite@latest in the root of the app folder.
+  - Name: frontend
+  - Framework: react
+  - Variant: javascript
+  - rolldown-vite: no
+  - install npm and start: yes.
+- Replace index.html with the one provided in this repository.
+- Delete all files in the `/src` folder and replace all of them with the source code from this repository here.
+- You will also need to install react-router-dom in the frontend `npm install react-router-dom`.
+
+Now running npm run dev in the frontend folder should render the login page correctly.
+If the environment is notrecognised, we need to replace the `.venv` with a new `.venv`. If this is so.
+Create a new .venv python environment in the backend folder.
+- You need to install fastapi and pymongo via `pip install "fastapi[standard]" and pip install pymongo`.
+- Authentication is enabled for this database. An admin user with name: "root", pwd: "root", with role: "root" and db: "admin" is required.
+- Security authourisation also needs to be enabled in the mongo config file.
+- the verify_xxx.py files can help you check if the packages/programs are properlly installed and working.
+
+Upon running `uvicorn mongo_app:app`, you may encounter a fatal error. This is due to an issue beyond my knowledge. Seemingly this occurs when the terminal in the backend enables the .venv environment.
+To get around this, you will need to quickly copy and paste the above command into a freshly created terminal in the backend.
 
 
 ## Demonstration Accounts
@@ -90,6 +110,8 @@ The application uses 3 mongo db collections.
 - users - registered accounts and roles.
 - expenses - record of expenses with title, amount, category, date, description and user's email.
 - actions - a log of major actions in the application such as login, logout, and expense modifications.
+
+A json_export folder has been provided in this repository that contains sample expense_items, actions and users that were used in the demonstration video. You may add them to the mongodb database via mongo compass.
 
 ## Workload
 This application was developed and completed indivdually by Jason Dau.
