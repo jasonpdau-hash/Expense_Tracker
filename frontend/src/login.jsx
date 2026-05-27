@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './login.css';
 
-const API_URL_KEY = 'http://127.0.0.1:8000/login';
+const API_URL_BASE = 'http://127.0.0.1:8000';
 
 export default function Login() {
   const [credentials, setCredentials] = useState({}); // Stores credientials as an object
@@ -18,7 +18,7 @@ export default function Login() {
     inp.preventDefault();
     if (credentials.email.trim() && credentials.password.trim()) {
       try {
-        const response = await fetch (API_URL_KEY, {
+        const response = await fetch (API_URL_BASE + '/login', {
           method: 'POST',
           headers: {
             'Content-Type': "application/json",
@@ -31,8 +31,16 @@ export default function Login() {
         if (response.ok) {
           const data = await response.json();
           console.log("[User] Successful login:", data);
-          localStorage.setItem('email', credentials.email);
-          navigate('/user');
+
+          localStorage.setItem('email', data.email);
+          localStorage.setItem('access_token', data.access_token);
+          localStorage.setItem('access_role', data.role);
+
+          if (localStorage.getItem('access_role') == "admin") {
+            navigate('/action');
+          } else {
+            navigate('/expense');
+          }
         } else {
           alert("[User] Failed login. Please check your credientials.")
         }
