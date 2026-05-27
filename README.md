@@ -51,9 +51,27 @@ Prerequsities
 
 1. Clone this repository into a project folder.
 
-2. Change directory to frontend and run `npm run dev`
-3. 
-4. 
+2. Create a new `.env` file in the backend/ folder with the following details
+```
+db_username=root
+db_password=root
+db_host=localhost
+db_port=27017
+db_auth_source=admin
+db_name=mongo_expenses_app
+
+db_users_collection_name=users
+db_expenses_collection_name=expenses
+db_actions_collection_name=actions
+
+app_jwt_secret=fromfastapiimportFastAPIHTTPExceptionstatusDepends
+```
+4. Change directory to frontend and run `npm run dev` to start the frontend
+
+5. Change directory to backend and run `uvicorn mongo_app:app` to start the backend.
+6. 
+7. 
+8. 
 
 ```
 
